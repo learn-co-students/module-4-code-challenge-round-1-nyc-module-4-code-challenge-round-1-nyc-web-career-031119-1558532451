@@ -23,7 +23,7 @@ const BotCard = props => {
     if (bot.enlisted && props.dischargeBot) {
       props.dischargeBot(props.bot)
     } else if (bot.enlisted === false && props.enlistBot) {
-    props.enlistBot(props.bot)
+      props.inspectBot(props.bot)
     }
   }
 

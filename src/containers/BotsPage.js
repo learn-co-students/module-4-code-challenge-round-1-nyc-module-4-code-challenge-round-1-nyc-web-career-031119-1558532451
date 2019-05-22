@@ -6,7 +6,8 @@ const BOT_URL = "https://bot-battler-api.herokuapp.com/api/v1/bots";
 class BotsPage extends React.Component {
   //start here with your code for step one
   state = {
-    bots: []
+    bots: [],
+    inpectedBot: null
   }
 
   componentDidMount() {
@@ -31,7 +32,10 @@ class BotsPage extends React.Component {
         return bot
       }
     });
-    this.setState({ bots: updatedBots });
+    this.setState({
+      bots: updatedBots,
+      inspectedBot: null
+     });
   }
 
   dischargeBot = (clickedBot) => {
@@ -45,16 +49,25 @@ class BotsPage extends React.Component {
     this.setState({ bots: updatedBots });
   }
 
+  inspectBot = (clickedBot) => {
+    this.setState({ inspectedBot: clickedBot })
+  }
+
+  goBack = () => {
+    this.setState({ inspectedBot: null })
+  }
+
   render() {
     const filteredBots = this.state.bots.filter(bot => {
       return bot.enlisted
     });
     console.log("All bots: ", this.state.bots);
     console.log("Enlisted Bots: ", filteredBots);
+    console.log("Inspected Bot: ", this.state.inspectedBot);
     return (
       <div>
         <YourBotArmy bots={filteredBots} dischargeBot={this.dischargeBot} />
-        <BotCollection bots={this.state.bots} enlistBot={this.enlistBot} />
+        <BotCollection bots={this.state.bots} enlistBot={this.enlistBot} inspectBot={this.inspectBot} inspectedBot={this.state.inspectedBot} goBack={this.goBack} />
       </div>
     );
   }
