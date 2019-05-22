@@ -1,6 +1,6 @@
 import React from "react";
 
-const BotCard = props => {
+const BotArmy = props => {
 
   const { bot } = props;
   let botType;
@@ -18,17 +18,14 @@ const BotCard = props => {
     default:
       botType = <div />;
   }
-  const click = (props) => {
-    props.handleClick;
-    props.handleEnlist
-  }
 
   return (
     <div className="ui column">
       <div
         className="ui card"
         key={bot.id}
-        onClick={() => props.handleClick(bot)}>
+        onClick={() => props.handleClick(bot)}
+      >
         <div className="image">
           <img alt="oh no!" src={bot.avatar_url} />
         </div>
@@ -58,7 +55,7 @@ const BotCard = props => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
-export default BotCard;
+export default BotArmy;
