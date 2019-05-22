@@ -12,7 +12,8 @@ class BotsPage extends React.Component {
   /**************************************/
   state = {
     bots: [],
-    details: {on: false, bot:{}}
+    details: {on: false, bot:{}},
+    filter: {on: false, botClass: ""}
   };
 
 /**************************************/
@@ -47,6 +48,15 @@ class BotsPage extends React.Component {
     this.handleBackClick();
   }
 
+  handleFormSubmit = (botClass) => {
+    console.log("Submitted!! with class name: ", botClass);
+    if (botClass === "All") {
+      this.setState({filter: {on: false, botClass: ""}});
+    } else {
+      this.setState({filter: {on: true, botClass: botClass}});
+    }
+  }
+
 //End Event Handlers
 
 /* ***********************************
@@ -55,12 +65,25 @@ class BotsPage extends React.Component {
   render() {
     console.log(this.state);
     const enlistedBots = this.state.bots.filter(bot => bot.enlisted);
+
+    const filterTheBots = () => {
+      if (this.state.filter.on) {
+        return this.state.bots.filter(bot => bot.bot_class === this.state.filter.botClass);
+      } else {
+        return this.state.bots
+      }
+    }
+
+    // const botClasses = this.state.filter
+
+    const botClasses = [...new Set(this.state.bots.map(bot => bot.bot_class))]
+
     return (
       <div>
         <YourBotArmy bots={enlistedBots} onBotClick={this.handleBotCardClick} />
         {this.state.details.on ?
-          <BotSpecs bot={this.state.details.bot} onEnlistClick={this.handleEnlistClick} onBackClick={this.handleBackClick} />
-          :<BotCollection bots={this.state.bots} onBotClick={this.handleBotCardClick} />
+          <BotSpecs bot={this.state.details.bot} onEnlistClick={this.handleEnlistClick} onBackClick={this.handleBackClick}  />
+          :<BotCollection bots={filterTheBots()} onBotClick={this.handleBotCardClick} botClasses={botClasses} onFormSubmit={this.handleFormSubmit}/>
         }
       </div>
     );
