@@ -21,6 +21,7 @@ class BotsPage extends React.Component {
     })
   }
 
+
   addToArmy = (e) => {
     this.state.bots.forEach(bot => {
       if (bot.id == e.target.id) {
@@ -29,10 +30,8 @@ class BotsPage extends React.Component {
             botArmy: [...this.state.botArmy, bot]
           })
         } else if (this.state.botArmy.includes(bot)) {
-          console.log(this.state.botArmy.indexOf(bot))
-          console.log(this.state.botArmy)
-          let botToRemove = this.state.botArmy.indexOf(bot)
-          this.state.botArmy.splice(botToRemove, 1)
+          let botToRemoveIndex = this.state.botArmy.indexOf(bot)
+          this.state.botArmy.splice(botToRemoveIndex, 1)
           this.setState({
             botArmy: [...this.state.botArmy]
           })
