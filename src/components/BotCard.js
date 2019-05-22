@@ -18,13 +18,13 @@ const BotCard = props => {
     default:
       botType = <div />;
   }
-
+// console.log(props)
   return (
     <div className="ui column">
       <div
         className="ui card"
         key={bot.id}
-        onClick={() => console.log("add code to connect event listener")}
+        onClick={() => props.onBotClick(bot)}
       >
         <div className="image">
           <img alt="oh no!" src={bot.avatar_url} />
