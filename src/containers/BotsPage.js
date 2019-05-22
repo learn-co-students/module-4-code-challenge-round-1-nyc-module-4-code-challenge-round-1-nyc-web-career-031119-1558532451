@@ -25,39 +25,23 @@ class BotsPage extends React.Component {
       })
     }
 
+    // Finds bot to display specs of
     handleBotClick = (e) => {
       let clickedBot = this.state.bots.find(bot => bot.id == e.target.id)
-      let cut = []
-      if (this.state.army.includes(clickedBot)) {
-        // find index of target bot and cut them out
-        this.state.army.splice(this.state.army.indexOf(clickedBot),1)
-        let cut = this.state.army
-        // console.log("cut",cut)
-        this.setState({
-          army: cut
-        })
-      } 
-      else {
         this.setState({
           prospect : clickedBot,
           viewBot: true
-        },console.log(this.state))
-
-        // previous version
-        // this.setState({
-        //   army: [...this.state.army, enlisted]
-        // })
-        // console.log("end",this.state.army)
-      }
+        })
     }
 
+    // brings back to bot collection page
     handleGoBack = () => {
       this.setState({
         viewBot: false
       })
-      // console.log("go back")
     }
 
+    // adds bot to army
     handleEnlist = (e) => {
       let clickedBot = this.state.bots.find(bot => bot.id == e.target.id)
       this.state.army.includes(clickedBot) ? 
@@ -69,12 +53,22 @@ class BotsPage extends React.Component {
         })
     }
 
+    //removes bot from army. functionality added to BotSpecs
+    handleRemove = (e) => {
+      let clickedBot = this.state.bots.find(bot => bot.id == e.target.id)
+      this.state.army.splice(this.state.army.indexOf(clickedBot),1)
+      let cut = this.state.army
+      this.setState({
+        army: cut
+      })
+    }
+
   render() {
     return (
       <div>
         <YourBotArmy army={this.state.army} handleBotClick={this.handleBotClick}/>
         {this.state.viewBot ? 
-          <BotSpecs bot={this.state.prospect} handleGoBack={this.handleGoBack} handleEnlist={this.handleEnlist} army={this.state.army}/>
+          <BotSpecs bot={this.state.prospect} handleRemove={this.handleRemove} handleGoBack={this.handleGoBack} handleEnlist={this.handleEnlist} army={this.state.army}/>
           :
           <BotCollection bots={this.state.bots} handleBotClick={this.handleBotClick} />}
       </div>

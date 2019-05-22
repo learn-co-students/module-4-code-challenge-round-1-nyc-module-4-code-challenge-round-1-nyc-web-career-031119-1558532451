@@ -64,12 +64,13 @@ const BotSpecs = props => {
             >
               Go Back
             </button>
+            {/* picks which button to show depending on whether bot is in army already */}
             {props.army.includes(bot) ? <button
-              className="ui button fluid"
-              onClick={props.handleEnlist}
+              className="ui button fluid red"
+              onClick={props.handleRemove}
               id={bot.id}
             >
-              Test
+              Remove
             </button>
             :
             <button
