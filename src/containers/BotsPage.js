@@ -3,21 +3,30 @@ import BotCollection from "./BotCollection"
 import YourBotArmy from "./YourBotArmy"
 import BotSpecs from "../components/BotSpecs"
 
+//Bots API Endpoint
 const BOTS_URL = "https://bot-battler-api.herokuapp.com/api/v1/bots";
 
 class BotsPage extends React.Component {
-  //start here with your code for step one
+  /**************************************/
+      //set up initial state
+  /**************************************/
   state = {
     bots: [],
     details: {on: false, bot:{}}
   };
 
+/**************************************/
+    //Lifecyle Methods
+/**************************************/
   componentDidMount(){
     fetch(BOTS_URL)
     .then(resp => resp.json())
     .then(data => this.setState({bots: data}))
   }
 
+/**************************************/
+    //Event Handlers
+/**************************************/
   handleBotCardClick = (id) => {
     const selectedBot = this.state.bots.find(bot => bot.id === id);
     this.setState( {details: {on: true, bot: selectedBot} } )
@@ -38,7 +47,11 @@ class BotsPage extends React.Component {
     this.handleBackClick();
   }
 
+//End Event Handlers
 
+/* ***********************************
+    //Render
+**************************************/
   render() {
     console.log(this.state);
     const enlistedBots = this.state.bots.filter(bot => bot.enlisted);
