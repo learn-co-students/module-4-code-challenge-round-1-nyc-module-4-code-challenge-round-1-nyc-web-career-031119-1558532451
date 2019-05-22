@@ -44,15 +44,15 @@ const BotSpecs = props => {
               <div className="ui three column centered grid">
                 <div className="row">
                   <div className="column">
-                    <i className="icon large circular red heartbeat" />
+                    <i className="icon large circular red heartbeat" onClick={() => props.handleHealthClick(bot.id)}/>
                     <strong>{bot.health}</strong>
                   </div>
                   <div className="column">
-                    <i className="icon large circular yellow lightning" />
+                    <i className="icon large circular yellow lightning" onClick={() => props.handleDamageClick(bot.id)} />
                     <strong>{bot.damage}</strong>
                   </div>
                   <div className="column">
-                    <i className="icon large circular blue shield" />
+                    <i className="icon large circular blue shield" onClick={() => props.handleArmorClick(bot.id)}/>
                     <strong>{bot.armor}</strong>
                   </div>
                 </div>

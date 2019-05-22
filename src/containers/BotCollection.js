@@ -4,13 +4,10 @@ import BotSpecs from '../components/BotSpecs'
 
 class BotCollection extends React.Component {
   //your code here
-
   state = {
     botSpecs:false,
     botID: 0
   }
-
-
 
   handleClick = (id) => {
     this.setState({
@@ -36,6 +33,18 @@ class BotCollection extends React.Component {
     })
   }
 
+  handleHealthClick = (id) => {
+    this.props.powerUpHealth(id)
+  }
+
+  handleDamageClick = (id) => {
+    this.props.powerUpDamage(id)
+  }
+
+  handleArmorClick = (id) => {
+    this.props.powerUpArmor(id)
+  }
+
   render(){
     const foundBot = this.findBot(this.state.botID)
 
@@ -43,7 +52,15 @@ class BotCollection extends React.Component {
   	  <div className="ui four column grid">
     		<div className="row">
           {this.state.botSpecs
-            ? < BotSpecs bot={foundBot} handleBack={this.handleBack} handleAdd={this.handleAdd}/>
+            ?
+              < BotSpecs
+                bot={foundBot}
+                handleBack={this.handleBack} h
+                andleAdd={this.handleAdd}
+                handleHealthClick={this.handleHealthClick}
+                handleDamageClick={this.handleDamageClick}
+                handleArmorClick={this.handleArmorClick}
+              />
             : this.props.bots.map(bot => {
               return < BotCard bot={bot} addToArmy={this.props.addToArmy} handleClick={this.handleClick}/>
             })

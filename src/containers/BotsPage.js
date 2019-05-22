@@ -44,11 +44,55 @@ class BotsPage extends React.Component {
     })
   }
 
+  powerUpHealth = (id) =>{
+    this.setState({
+      bots: this.state.bots.map(bot => {
+        if (bot.id === id){
+          return {...bot, health: bot.health +1}
+        } else {
+          return bot
+        }
+      })
+    },() => console.log(this.state.bots))
+  }
+
+  powerUpDamage = (id) =>{
+    // this.setState({
+    //   bots: this.state.bots.map(bot => {
+    //     if (bot.id === id){
+    //       return {...bot, damage: bot.damage +1}
+    //     } else {
+    //       return bot
+    //     }
+    //   })
+    // })
+  }
+
+  powerUpArmor = (id) =>{
+    // bots: this.state.bots.map(bot => {
+    //     if (bot.id === id){
+    //       return {...bot, armor: bot.armor +1}
+    //     } else {
+    //       return bot
+    //     }
+    //   }})
+    // })
+  }
+
   render() {
     return (
       <div>
-        < YourBotArmy myArmy={this.state.myArmy} removeFromArmy={this.removeFromArmy}/>
-      < BotCollection bots={this.state.bots} addToArmy={this.addToArmy}/>
+        < YourBotArmy
+          myArmy={this.state.myArmy}
+          removeFromArmy={this.removeFromArmy}
+        />
+        < BotCollection
+          bots={this.state.bots}
+          addToArmy={this.addToArmy}
+          powerUpHealth={this.powerUpHealth}
+          powerUpDamage={this.powerUpDamage}
+          powerUpArmor={this.powerUpArmor}
+        />
       </div>
     );
   }
