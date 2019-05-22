@@ -33,8 +33,13 @@ class BotsPage extends React.Component {
     // console.log(this.state.bots);
     return (
       <div>
-        {<YourBotArmy bots={this.state.bots} click={this.enlistDelist}/>}
-        {<BotCollection bots={this.state.bots} click={this.enlistDelist}/>}
+        {<YourBotArmy
+          bots={this.state.bots}
+          enlistDelist={this.enlistDelist}
+          />}
+        {<BotCollection
+          bots={this.state.bots}
+          enlistDelist={this.enlistDelist}/>}
       </div>
     );
   }
