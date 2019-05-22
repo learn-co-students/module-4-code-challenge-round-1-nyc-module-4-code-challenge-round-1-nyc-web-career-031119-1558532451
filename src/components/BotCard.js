@@ -1,6 +1,14 @@
 import React from "react";
 
 const BotCard = props => {
+  // console.log("Bot Card", props);
+  const handleClick = () => {
+    props.onEnlistClick(props.bot.id)
+  }
+
+  const handleDeleteClick = () => {
+    props.handleRemove(props.bot.id)
+  }
   const { bot } = props;
 
   let botType;
@@ -20,7 +28,10 @@ const BotCard = props => {
   }
 
   return (
-    <div className="ui column">
+    <div className="ui column"
+      onClick={handleClick}
+      onDeleteClick={handleDeleteClick}
+      >
       <div
         className="ui card"
         key={bot.id}
