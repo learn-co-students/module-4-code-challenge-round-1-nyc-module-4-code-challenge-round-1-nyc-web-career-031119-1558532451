@@ -57,9 +57,9 @@ class BotsPage extends React.Component {
     const enlistedBots = this.state.bots.filter(bot => bot.enlisted);
     return (
       <div>
-        <YourBotArmy bots={enlistedBots} />
+        <YourBotArmy bots={enlistedBots} onBotClick={this.handleBotCardClick} />
         {this.state.details.on ?
-          <BotSpecs bot={this.state.details.bot} onEnlistClick={this.handleEnlistClick} onBackClick={this.handleBackClick}/>
+          <BotSpecs bot={this.state.details.bot} onEnlistClick={this.handleEnlistClick} onBackClick={this.handleBackClick} />
           :<BotCollection bots={this.state.bots} onBotClick={this.handleBotCardClick} />
         }
       </div>

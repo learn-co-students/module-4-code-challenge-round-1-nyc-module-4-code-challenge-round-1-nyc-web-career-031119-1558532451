@@ -1,6 +1,7 @@
 import React from "react";
 import BotCard from "../components/BotCard";
 
+//can be functional
 class YourBotArmy extends React.Component {
 
   render(){
@@ -8,7 +9,7 @@ class YourBotArmy extends React.Component {
       <div className="ui segment inverted olive bot-army">
         <div className="ui five column grid">
           <div className="row bot-army-row">
-            {this.props.bots.map(bot => <BotCard bot={bot} key={bot.id} onBotClick={null}/>)}
+            {this.props.bots.map(bot => <BotCard bot={bot} key={bot.id} onBotClick={this.props.onBotClick}/>)}
           </div>
         </div>
       </div>
