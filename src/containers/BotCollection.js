@@ -5,8 +5,8 @@ class BotCollection extends React.Component {
   //your code here
 
 	handleClick = bot => {
-		this.props.addBot(bot);
-		// console.log(bot)
+		this.props.showBot(bot);
+		// this.props.addBot(bot);
 	};
 
 	renderBots = () => {

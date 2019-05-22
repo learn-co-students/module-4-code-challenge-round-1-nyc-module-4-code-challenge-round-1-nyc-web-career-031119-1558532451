@@ -5,7 +5,6 @@ class YourBotArmy extends React.Component {
 
   handleClick = bot => {
     this.props.removeBot(bot);
-    console.log(bot)
   };
 
   renderBots = () => {
