@@ -1,4 +1,4 @@
-export const bots = [
+export const botsJS = [
 	{
 		"id": 101,
 		"name": "wHz-93",
