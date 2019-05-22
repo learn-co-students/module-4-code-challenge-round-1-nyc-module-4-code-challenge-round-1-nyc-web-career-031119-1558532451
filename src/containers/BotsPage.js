@@ -13,7 +13,10 @@ class BotsPage extends React.Component {
   componentDidMount() {
     fetch("https://bot-battler-api.herokuapp.com/api/v1/bots")
       .then(resp => resp.json())
-      .then(bots => this.setState({bots: [...this.state.bots, ...bots]}))
+      .then(bots => this.setState(prevState => {
+        const addedKey = bots.map(bot => ({...bot, isSpecShown: false}));
+        return {bots: [...addedKey]}
+      }))
   }
 
   selectingBot = (event, id) => {
@@ -27,6 +30,9 @@ class BotsPage extends React.Component {
       if (!this.state.myBots.includes(selectedBot)) {
         // console.log("TESTING THE LOGIC")
         this.setState({myBots: [...this.state.myBots, selectedBot]})
+        //** WAS GOING TO UPDATE THE THIS.STATE.BOT TO ISHSHOWNPREVEW TO TRUE
+        //** AND IN THE BOT COLLECTION, WRITE A TERNARY OPERATOR IN ORDER TO
+        //** SHOW THE SELECTED BOT (WOULD RENDER THE BOT SPEC)
       }
     }
     else if (event.clientY < 300){
@@ -37,7 +43,7 @@ class BotsPage extends React.Component {
   }
 
   render() {
-    // console.log(this.state.bots)
+    console.log(this.state)
     return (
       <div>
         <YourBotArmy myBots={this.state.myBots} selectingBot={this.selectingBot}/>

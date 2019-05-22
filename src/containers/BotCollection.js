@@ -4,6 +4,10 @@ import BotCard from "../components/BotCard";
 class BotCollection extends React.Component {
   //your code here
 
+  state = {
+    showingOneBot: false
+  }
+
   render(){
     const renderAllBots = this.props.allBots.map( bot => {
       return <BotCard bot={bot} key={bot.id} selectingBot={this.props.selectingBot}/>
@@ -12,7 +16,7 @@ class BotCollection extends React.Component {
   	return (
   	  <div className="ui four column grid">
     		<div className="row">
-          {renderAllBots}
+          {this.state.showingOneBot ? null : renderAllBots}
     		</div>
   	  </div>
   	);
