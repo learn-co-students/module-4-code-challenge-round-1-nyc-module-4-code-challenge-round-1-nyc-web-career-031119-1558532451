@@ -27,6 +27,8 @@ class BotsPage extends React.Component {
           this.state.bots.find(bot => bot.id === id)
         ]
       }, ()=> console.log(this.state.myArmy))
+    } else {
+      alert("Bot already enlisted")
     }
   }
 

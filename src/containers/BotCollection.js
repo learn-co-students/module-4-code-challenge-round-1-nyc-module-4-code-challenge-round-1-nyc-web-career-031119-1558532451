@@ -1,19 +1,54 @@
 import React from "react";
 import BotCard from "../components/BotCard";
+import BotSpecs from '../components/BotSpecs'
 
 class BotCollection extends React.Component {
   //your code here
+
+  state = {
+    botSpecs:false,
+    botID: 0
+  }
+
+
+
   handleClick = (id) => {
+    this.setState({
+      botSpecs:true,
+      botID: id
+    })
+  }
+
+  handleBack = () => {
+    this.setState({
+      botSpecs:false
+    })
+  }
+
+  handleAdd = (id) => {
     this.props.addToArmy(id)
+    this.handleBack()
+  }
+
+  findBot = (id) => {
+    return this.props.bots.find(bot => {
+      return bot.id === id
+    })
   }
 
   render(){
+    const foundBot = this.findBot(this.state.botID)
+
   	return (
   	  <div className="ui four column grid">
     		<div className="row">
-    		  {this.props.bots.map(bot => {
-            return < BotCard bot={bot} addToArmy={this.props.addToArmy} handleClick={this.handleClick}/>
-          })}
+          {this.state.botSpecs
+            ? < BotSpecs bot={foundBot} handleBack={this.handleBack} handleAdd={this.handleAdd}/>
+            : this.props.bots.map(bot => {
+              return < BotCard bot={bot} addToArmy={this.props.addToArmy} handleClick={this.handleClick}/>
+            })
+          }
+
     		</div>
   	  </div>
   	);
