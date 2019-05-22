@@ -1,13 +1,16 @@
 import React from "react";
 import BotCollection from "./BotCollection";
 import YourBotArmy from "./YourBotArmy";
+import BotSpecs from "../components/BotSpecs";
 
 
 class BotsPage extends React.Component {
   //start here with your code for step one
   state = {
     bots: [],
-    army: []
+    army: [],
+    viewBot: false,
+    prospect: {}
   }
 
   componentDidMount() {
@@ -23,11 +26,11 @@ class BotsPage extends React.Component {
     }
 
     handleBotClick = (e) => {
-      let enlisted = this.state.bots.find(bot => bot.id == e.target.id)
+      let clickedBot = this.state.bots.find(bot => bot.id == e.target.id)
       let cut = []
-      if (this.state.army.includes(enlisted)) {
+      if (this.state.army.includes(clickedBot)) {
         // find index of target bot and cut them out
-        this.state.army.splice(this.state.army.indexOf(enlisted),1)
+        this.state.army.splice(this.state.army.indexOf(clickedBot),1)
         let cut = this.state.army
         // console.log("cut",cut)
         this.setState({
@@ -36,18 +39,44 @@ class BotsPage extends React.Component {
       } 
       else {
         this.setState({
-          army: [...this.state.army, enlisted]
-        })
+          prospect : clickedBot,
+          viewBot: true
+        },console.log(this.state))
+
+        // previous version
+        // this.setState({
+        //   army: [...this.state.army, enlisted]
+        // })
         // console.log("end",this.state.army)
       }
+    }
 
+    handleGoBack = () => {
+      this.setState({
+        viewBot: false
+      })
+      // console.log("go back")
+    }
+
+    handleEnlist = (e) => {
+      let clickedBot = this.state.bots.find(bot => bot.id == e.target.id)
+      this.state.army.includes(clickedBot) ? 
+        console.log("bot already enlisted")
+        :
+        this.setState({
+          army: [...this.state.army, clickedBot],
+          viewBot: false
+        })
     }
 
   render() {
     return (
       <div>
         <YourBotArmy army={this.state.army} handleBotClick={this.handleBotClick}/>
-        <BotCollection bots={this.state.bots} handleBotClick={this.handleBotClick}/>
+        {this.state.viewBot ? 
+          <BotSpecs bot={this.state.prospect} handleGoBack={this.handleGoBack} handleEnlist={this.handleEnlist} army={this.state.army}/>
+          :
+          <BotCollection bots={this.state.bots} handleBotClick={this.handleBotClick} />}
       </div>
     );
   }
