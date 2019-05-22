@@ -19,6 +19,8 @@ const BotCard = props => {
       botType = <div />;
   }
 
+  //TODO handle army case if onBotClick === null
+
   return (
     <div className="ui column">
       <div

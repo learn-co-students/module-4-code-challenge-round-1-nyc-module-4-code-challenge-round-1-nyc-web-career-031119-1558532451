@@ -1,12 +1,16 @@
 import React from "react";
 import BotCollection from "./BotCollection"
 import YourBotArmy from "./YourBotArmy"
+import BotSpecs from "../components/BotSpecs"
 
 const BOTS_URL = "https://bot-battler-api.herokuapp.com/api/v1/bots";
 
 class BotsPage extends React.Component {
   //start here with your code for step one
-  state = {bots: []};
+  state = {
+    bots: [],
+    details: {on: false, bot:{}}
+  };
 
   componentDidMount(){
     fetch(BOTS_URL)
@@ -16,10 +20,24 @@ class BotsPage extends React.Component {
 
   handleBotCardClick = (id) => {
     const selectedBot = this.state.bots.find(bot => bot.id === id);
-    selectedBot.enlisted = true;
-    console.log("Clicked!! with bot: ", selectedBot);
-    this.setState({bots: this.state.bots}); //TODO: refactor using prevState
+    this.setState( {details: {on: true, bot: selectedBot} } )
+
+    // const selectedBot = this.state.bots.find(bot => bot.id === id);
+    // selectedBot.enlisted = true;
+    // console.log("Clicked!! with bot: ", selectedBot);
+    // this.setState({bots: this.state.bots}); //TODO: refactor using prevState
   }
+
+  handleBackClick = () => this.setState( {details: {on: false, bot: {} } })
+
+  handleEnlistClick = (id) => {
+    console.log("Clicked!! with bot id: ", id);
+    const selectedBot = this.state.bots.find(bot => bot.id === id);
+    selectedBot.enlisted = true;
+    this.setState({bots: this.state.bots}); //TODO: refactor using prevState
+    this.handleBackClick();
+  }
+
 
   render() {
     console.log(this.state);
@@ -27,7 +45,10 @@ class BotsPage extends React.Component {
     return (
       <div>
         <YourBotArmy bots={enlistedBots} />
-        <BotCollection bots={this.state.bots} onBotClick={this.handleBotCardClick} />
+        {this.state.details.on ?
+          <BotSpecs bot={this.state.details.bot} onEnlistClick={this.handleEnlistClick} onBackClick={this.handleBackClick}/>
+          :<BotCollection bots={this.state.bots} onBotClick={this.handleBotCardClick} />
+        }
       </div>
     );
   }
